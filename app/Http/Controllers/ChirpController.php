@@ -34,5 +34,30 @@ public function store(Request $request)
     return redirect('/')->with('success', 'Your chirp has been posted!');
 }
 
+
+
+public function edit(Chirp $chirp)
+{
+    // We'll add authorization in lesson 11
+    return view('chirps.edit', compact('chirp'));
+}
+
+
+
+public function destroy(Chirp $chirp)
+{
+    $chirp->delete();
+
+    return redirect('/')->with('success', 'Chirp deleted!');
+}
+
+public function update(Request $request, Chirp $chirp)
+{
+    if ($request->user()->cannot('update', $chirp)) {
+        abort(403);
+    }
     
 }
+
+}
+    // Validate
